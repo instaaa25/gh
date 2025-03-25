@@ -21,8 +21,17 @@
             color: #555;
             margin-bottom: 80px;
         }
+        .languagef {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 20px;
+        }
         .logo {
             width: 120px;
+            margin-bottom: 20px;
+        }
+        .logo {
+            width: 70px;
             margin-bottom: 20px;
         }
         input {
